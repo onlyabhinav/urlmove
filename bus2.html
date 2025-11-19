@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus 2 - GPS Tracking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .bus-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px 0;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .error h3 {
+            margin-bottom: 10px;
+        }
+        
+        .manual-link {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8eaf6;
+            border-radius: 8px;
+        }
+        
+        .manual-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-all;
+        }
+        
+        .manual-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bus-icon">🚌</div>
+        <h1>Bus 2 GPS Tracking</h1>
+        <p class="subtitle">Redirecting to live tracking...</p>
+        <div class="loading"></div>
+        <div id="errorMessage" style="display: none;">
+            <div class="error">
+                <h3>⚠️ GPS Link Not Configured</h3>
+                <p>Please contact the school administrator to set up the GPS tracking link for this bus.</p>
+            </div>
+        </div>
+        <div id="manualLink" style="display: none;" class="manual-link">
+            <p><strong>Click here if not redirected automatically:</strong></p>
+            <a id="linkUrl" href="#" target="_blank">Open GPS Tracking</a>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        const busNumber = 2;
+        
+        // Fetch GPS link from Google Sheets
+        async function redirectToBus() {
+            try {
+                const gpsLink = await getBusLink(busNumber);
+                
+                // Show manual link as backup
+                document.getElementById('linkUrl').href = gpsLink;
+                document.getElementById('manualLink').style.display = 'block';
+                
+                // Redirect after 2 seconds
+                setTimeout(function() {
+                    window.location.href = gpsLink;
+                }, 2000);
+                
+            } catch (error) {
+                // Show error message
+                document.querySelector('.loading').style.display = 'none';
+                document.querySelector('.subtitle').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+                
+                // Show specific error if config not set
+                if (error.message.includes('configure your Google Sheet URL')) {
+                    document.querySelector('.error p').textContent = 
+                        'Administrator: Please configure the Google Sheet URL in config.js file.';
+                }
+            }
+        }
+        
+        // Start the redirect process
+        redirectToBus();
+    </script>
+</body>
+</html>

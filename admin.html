@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus GPS Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .bus-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .bus-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .link-display {
+            background: #e8eaf6;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #333;
+            word-break: break-all;
+        }
+        
+        .link-display strong {
+            color: #667eea;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .save-btn {
+            background: #667eea;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .export-btn {
+            background: #28a745;
+            color: white;
+        }
+        
+        .export-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        
+        .import-btn {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .import-btn:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+        }
+        
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #856404;
+        }
+        
+        .instructions h4 {
+            margin-bottom: 8px;
+            color: #856404;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚌 Bus GPS Admin Panel</h1>
+        <p class="subtitle">Update GPS tracking links for all school buses</p>
+        
+        <div class="instructions">
+            <h4>📋 Instructions:</h4>
+            <ol>
+                <li>Paste the new GPS tracking link for each bus below</li>
+                <li>Click "Save All Changes" to update the links</li>
+                <li>Share the permanent links (shown below each bus) with parents</li>
+                <li>Update these links weekly when your GPS provider changes them</li>
+            </ol>
+        </div>
+
+        <form id="busForm">
+            <div class="bus-section">
+                <h3>Bus 1</h3>
+                <div class="form-group">
+                    <label for="bus1">Current GPS Link:</label>
+                    <input type="text" id="bus1" name="bus1" placeholder="Paste GPS tracking link here...">
+                    <div class="link-display">
+                        <strong>Parent Link:</strong> bus1.html
+                    </div>
+                </div>
+            </div>
+
+            <div class="bus-section">
+                <h3>Bus 2</h3>
+                <div class="form-group">
+                    <label for="bus2">Current GPS Link:</label>
+                    <input type="text" id="bus2" name="bus2" placeholder="Paste GPS tracking link here...">
+                    <div class="link-display">
+                        <strong>Parent Link:</strong> bus2.html
+                    </div>
+                </div>
+            </div>
+
+            <div class="bus-section">
+                <h3>Bus 3</h3>
+                <div class="form-group">
+                    <label for="bus3">Current GPS Link:</label>
+                    <input type="text" id="bus3" name="bus3" placeholder="Paste GPS tracking link here...">
+                    <div class="link-display">
+                        <strong>Parent Link:</strong> bus3.html
+                    </div>
+                </div>
+            </div>
+
+            <div class="bus-section">
+                <h3>Bus 4</h3>
+                <div class="form-group">
+                    <label for="bus4">Current GPS Link:</label>
+                    <input type="text" id="bus4" name="bus4" placeholder="Paste GPS tracking link here...">
+                    <div class="link-display">
+                        <strong>Parent Link:</strong> bus4.html
+                    </div>
+                </div>
+            </div>
+
+            <div class="bus-section">
+                <h3>Bus 5</h3>
+                <div class="form-group">
+                    <label for="bus5">Current GPS Link:</label>
+                    <input type="text" id="bus5" name="bus5" placeholder="Paste GPS tracking link here...">
+                    <div class="link-display">
+                        <strong>Parent Link:</strong> bus5.html
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="save-btn">💾 Save All Changes</button>
+                <button type="button" class="export-btn" onclick="exportData()">📤 Export Backup</button>
+                <button type="button" class="import-btn" onclick="document.getElementById('fileInput').click()">📥 Import Backup</button>
+            </div>
+        </form>
+
+        <input type="file" id="fileInput" accept=".json" onchange="importData(event)">
+
+        <div id="status" class="status"></div>
+    </div>
+
+    <script>
+        // Load saved links on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            loadLinks();
+        });
+
+        function loadLinks() {
+            for (let i = 1; i <= 5; i++) {
+                const savedLink = localStorage.getItem('bus' + i);
+                if (savedLink) {
+                    document.getElementById('bus' + i).value = savedLink;
+                }
+            }
+        }
+
+        document.getElementById('busForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Save all links to localStorage
+            for (let i = 1; i <= 5; i++) {
+                const link = document.getElementById('bus' + i).value.trim();
+                if (link) {
+                    localStorage.setItem('bus' + i, link);
+                }
+            }
+            
+            showStatus('✅ All links saved successfully! Parents can now use the permanent links.', 'success');
+        });
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + type;
+            status.style.display = 'block';
+            
+            setTimeout(function() {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        function exportData() {
+            const data = {};
+            for (let i = 1; i <= 5; i++) {
+                data['bus' + i] = localStorage.getItem('bus' + i) || '';
+            }
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'bus-gps-backup-' + new Date().toISOString().split('T')[0] + '.json';
+            link.click();
+            
+            showStatus('✅ Backup exported successfully!', 'success');
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    for (let i = 1; i <= 5; i++) {
+                        const busKey = 'bus' + i;
+                        if (data[busKey]) {
+                            localStorage.setItem(busKey, data[busKey]);
+                            document.getElementById(busKey).value = data[busKey];
+                        }
+                    }
+                    showStatus('✅ Backup imported successfully!', 'success');
+                } catch (error) {
+                    showStatus('❌ Error importing backup. Please check the file.', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>

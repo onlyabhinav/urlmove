@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Bus GPS Tracking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .header .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .bus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .bus-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .bus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .bus-card .bus-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .bus-card h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .bus-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .info-box {
+            background: #e8eaf6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .bus-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">🚌</div>
+            <h1>School Bus GPS Tracking</h1>
+            <p class="subtitle">Select your child's bus to view live tracking</p>
+        </div>
+        
+        <div class="bus-grid">
+            <a href="bus1.html" class="bus-card">
+                <div class="bus-icon">🚌</div>
+                <h2>Bus 1</h2>
+                <p>Click to track</p>
+            </a>
+            
+            <a href="bus2.html" class="bus-card">
+                <div class="bus-icon">🚌</div>
+                <h2>Bus 2</h2>
+                <p>Click to track</p>
+            </a>
+            
+            <a href="bus3.html" class="bus-card">
+                <div class="bus-icon">🚌</div>
+                <h2>Bus 3</h2>
+                <p>Click to track</p>
+            </a>
+            
+            <a href="bus4.html" class="bus-card">
+                <div class="bus-icon">🚌</div>
+                <h2>Bus 4</h2>
+                <p>Click to track</p>
+            </a>
+            
+            <a href="bus5.html" class="bus-card">
+                <div class="bus-icon">🚌</div>
+                <h2>Bus 5</h2>
+                <p>Click to track</p>
+            </a>
+        </div>
+        
+        <div class="info-box">
+            <h3>📱 How to Use</h3>
+            <p>
+                Click on your child's bus number above to view real-time GPS tracking. 
+                The link will automatically redirect you to the current tracking location. 
+                You can bookmark this page or your specific bus link for quick access.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>For assistance, please contact the school administration.</p>
+        </div>
+    </div>
+</body>
+</html>

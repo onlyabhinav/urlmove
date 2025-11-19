@@ -1,0 +1,6 @@
+bus_number,gps_link
+1,https://your-gps-provider.com/track/bus1/example123
+2,https://your-gps-provider.com/track/bus2/example456
+3,https://your-gps-provider.com/track/bus3/example789
+4,https://your-gps-provider.com/track/bus4/example012
+5,https://your-gps-provider.com/track/bus5/example345
